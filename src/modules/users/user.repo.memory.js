@@ -9,7 +9,7 @@ export const makeUserRepoMemory = () => {
         return user
 
     }
-    const findbyEmail = ({ email }) => {
+    const findbyEmail = async ({ email }) => {
         users.find(user => user.email === email) ?? null
     }
 
