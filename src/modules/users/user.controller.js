@@ -1,7 +1,7 @@
-import { request, response } from "express"
-import { ensureAuth } from "../../middleware/auth"
+import { ensureAuth } from "../../middleware/auth.js"
+import { makeUserService } from "./user.service.js"
 
-export const makeUserService = () => {
+export const makeUserController = () => {
     const service = makeUserService()
 
     const register = async (request, response, next) => {
@@ -38,9 +38,9 @@ export const makeUserService = () => {
         }
     }
 
-    const me = [ensureAuth, async( request, response ) => {
-        return response.json ({user})}
-    ]
+    const me = [ensureAuth, async (request, response) => {
+        return response.json({ userId: request.user.id })
+    }]
 
-    return {register, login, me}
+    return { register, login, me }
 }

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
-import { HttpError } from "../../utils/httpErro"
-import { makeUserRepoMemory } from "./user.repo.memory"
-import { env } from "../../config/env"
+import { HttpError } from "../../utils/httpErro.js"
+import { makeUserRepoMemory } from "./user.repo.memory.js"
+import { env } from "../../config/env.js"
 
 export const makeUserService = () => {
     const repository = makeUserRepoMemory()
