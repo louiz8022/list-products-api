@@ -15,8 +15,8 @@ export const makeUserController = () => {
 
             })
             return response.status(200).json({
-                id: user, id,
-                name: user, name,
+                id: user.id,
+                name: user.name,
                 email: user.email,
             })
 

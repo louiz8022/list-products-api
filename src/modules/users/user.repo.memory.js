@@ -2,7 +2,7 @@ let users = [] // TODO: Migrar para DB
 
 export const makeUserRepoMemory = () => {
     const create = async ({ name, email, passwordHash }) => {
-        const id = users.lenght + 1;
+        const id = users.length + 1;
         const user = { id, name, email, passwordHash }
 
         users.push(user)
@@ -10,7 +10,7 @@ export const makeUserRepoMemory = () => {
 
     }
     const findbyEmail = async ({ email }) => {
-        users.find(user => user.email === email) ?? null
+        return users.find(user => user.email === email) ?? null
     }
 
     return { create, findbyEmail }

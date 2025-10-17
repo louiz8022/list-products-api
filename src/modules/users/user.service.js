@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 import { HttpError } from "../../utils/httpErro.js"
 import { makeUserRepoMemory } from "./user.repo.memory.js"
 import { env } from "../../config/env.js"
@@ -23,7 +24,7 @@ export const makeUserService = () => {
     const login = async ({ email, password }) => {
         const user = await repository.findbyEmail({ email })
 
-        if (user) {
+        if (!user) {
             throw new HttpError(
                 "User not found",
                 404,
@@ -42,8 +43,8 @@ export const makeUserService = () => {
             env.jwtSecret,
             {
                 subject:
-                    String(user, uid),
-                expireIn: env.jwtExpiresIn
+                    String(user.id),
+                expiresIn: env.jwtExpiresIn
             }
         )
 
