@@ -1,4 +1,4 @@
-import { makeProductService } from "./product.service"
+import { makeProductService } from "./product.service.js"
 export const makeProductController = () => {
     const service = makeProductService()
 

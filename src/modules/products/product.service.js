@@ -1,5 +1,5 @@
-import { id } from "zod/locales";
-import { makeProductRepoMemory } from "./product.repo.memory";
+
+import { makeProductRepoMemory } from "./product.repo.memory.js";
 
 export const makeProductService = () => {
     const repo = makeProductRepoMemory()
