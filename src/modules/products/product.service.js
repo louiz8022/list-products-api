@@ -1,8 +1,8 @@
-    
-import { makeProductRepoMemory } from "./product.repo.memory.js";
+import { HttpError } from "../../utils/httpError.js"
+import { makeProductRepoSequelize } from "./product.repo.sequelize.js";
 
 export const makeProductService = () => {
-    const repo = makeProductRepoMemory()
+    const repo = makeProductRepoSequelize()
 
     const sortable = ["id", "name", "price"]
     const dirOk = ["ASC", "DESC"]
@@ -46,15 +46,16 @@ export const makeProductService = () => {
         return found
     }
 
-    const patch = async ({id, data}) => {
-        const updated = await repo.update({id, data})
+    const patch = async ({ id, data }) => {
+        const updated = await repo.update({ id, data })
 
-        if (!updated)
-        { throw new HttpError(
-            "Product not found",
-            404,
-            "NOT_FOUND"
-        )}
+        if (!updated) {
+            throw new HttpError(
+                "Product not found",
+                404,
+                "NOT_FOUND"
+            )
+        }
         return updated
     }
     const remove = async ({ id }) => {
@@ -68,5 +69,5 @@ export const makeProductService = () => {
             )
         }
     }
-    return { create, list, get,patch, remove}
+    return { create, list, get, patch, remove }
 }

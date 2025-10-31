@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
-import { Product } from "../../models/Product"
-import { User } from "../../models/User"
+import { Product } from "../../models/Product.js"
+import { User } from "../../models/User.js"
 
 export const makeProductRepoSequelize = () => {
     const create = async ({ name, price, createdBy }) => {
@@ -41,16 +41,36 @@ export const makeProductRepoSequelize = () => {
             total: count
         }
     }
-    const findById = async ({id}) => {
+    const findById = async ({ id }) => {
         const product = await Product.findByPk(id, {
             include: [{
-                model:User,
+                model: User,
                 as: "cratedBy",
                 attributes: ["id", "name"]
 
             }]
         })
-        
+        return product ? product.toJson() : null
+    }
+
+    const update = async ({ id, data }) => {
+        const product = await Product.findByPk(id)
+
+        if (!product) return null
+
+        await product.update(data)
+
+        return product.toJSON()
 
     }
+    const remove = async ({ id }) => {
+        const product = await Product.findByPk(id)
+        if (!product) return null
+
+        await product.destroy()
+
+        return true
+
+    }
+    return { create, findAll, findById, update, remove }
 }
