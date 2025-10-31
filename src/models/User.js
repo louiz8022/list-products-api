@@ -1,6 +1,5 @@
-import { DataTypes, ForeignKeyConstraintError } from "sequelize";
-import { sequelize } from "../config/database";
-import { Product } from "./Product";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../config/database.js";
 
 export const User = sequelize.define("User", {
     id: {
@@ -35,16 +34,12 @@ export const User = sequelize.define("User", {
     },
     passwordHash: {
         type: DataTypes.STRING(255),
-        allowNull:false,
+        allowNull: false,
         field: "password_hash"
 
     }
-}, { tableName:"users",
+}, {
+    tableName: "users",
     timestamps: true,
-    underscored:true
-})
-
-User.hasMany(Product, {
-    ForeignKey: "userId",
-    as: "products"
+    underscored: true
 })
